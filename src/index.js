@@ -3,30 +3,16 @@ import ReactDOM from "react-dom";
 import SeasonDisplay from "./SeasonDisplay";
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            lat:null,
-            errorMessage: '',
-        };
-
-        window.navigator.geolocation.getCurrentPosition(
-            position => {
-                this.setState({lat: position.coords.latitude});
-            },
-            err => {
-                this.setState({ errorMessage: err.message});
-            }
-        );
-    }
+    state = {
+        lat:null,
+        errorMessage: '',
+    };
 
     componentDidMount() { //initial component state
-        console.log('My component was rendered to the screen');
-    }
-
-    componentDidUpdate() { //each time the component updates //render method is called
-        console.log('My component was just updated - it rerendered!');
+        window.navigator.geolocation.getCurrentPosition(
+            position => this.setState({lat: position.coords.latitude}),
+            err => this.setState({ errorMessage: err.message}),
+        );
     }
 
     render() {
